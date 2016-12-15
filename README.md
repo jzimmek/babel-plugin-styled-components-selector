@@ -46,7 +46,7 @@ const Button = styled.div`
 
 const PrimaryButton styled(Button)`
   font-size: 2rem;
-`
+`;
 
 const Container = styled.div`
   > ${PrimaryButton.selector} {
@@ -64,7 +64,7 @@ const Button = styled.div`
 
 const PrimaryButton styled(Button)`
   font-size: 2rem;
-`
+`;
 
 const Container = styled.div`
   > ${Button.selector} {
