@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-styled-components-selector",
-  "version": "1.0.0",
+  "version": "1.0.18",
   "description": "",
   "main": "lib/index.js",
   "repository": {
@@ -25,5 +25,11 @@
     "test": "jest",
     "test:watch": "npm run test -- --watch",
     "prepublish": "npm run clean && npm run build"
-  }
+  },
+  "keywords": [
+    "styled-components",
+    "css-in-js",
+    "babel-plugin",
+    "react"
+  ]
 }

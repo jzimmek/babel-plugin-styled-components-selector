@@ -1,10 +1,14 @@
+import hash from "./hash"
+
 export default function (babel) {
   const { types: t, template } = babel;
 
   return {
-    name: "babel-plugin-styled-components-selector", // not required
+    name: "ast-transform", // not required
     visitor: {
       Program(path, state) {
+        const fileName = state.opts.fileName||"no-file"
+
         // Default imported variable name to "styled", adjust based on import below
         let importedVariableName = 'styled'
 
@@ -37,13 +41,37 @@ export default function (babel) {
                   (tag.type==="CallExpression" && tag.callee.name===importedVariableName)
                   ||(tag.type==="MemberExpression" && tag.object.name===importedVariableName)
                 ){
-                  path2.insertAfter(
-                    t.assignmentExpression(
-                      "=",
-                      t.memberExpression(path2.node.id, t.identifier('toString')),
-                      t.arrowFunctionExpression([], t.stringLiteral("xx"))
-                    )
-                  )
+                  let {start,end} = path3.node.loc
+                  console.info("filename", fileName)
+
+                  path3.replaceWith(template(`(function(){
+                    let x = React.createFactory(ORIG)
+                    class y extends React.Component {
+                      render(){
+                        let {className} = this.props
+
+                        if(className){
+                        	className = className + " " + CLASS_NAME
+                        }else{
+                          className = CLASS_NAME
+                        }
+
+                    	  return x(Object.assign({}, this.props, {["className"]: className}))
+                      }
+                      static get selector(){
+                        return "." + CLASS_NAME
+                      }
+                    }
+              			return y
+              		})()`)({
+                    ORIG: path3,
+                    CLASS_NAME: t.stringLiteral("s-"+hash(`${fileName}-${start.line}_${start.column}__${end.line}_${end.column}`))
+                  }))
+
+
+                  path2.skip()
+                  path3.skip()
+
                 }
               }
             })
