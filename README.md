@@ -20,20 +20,20 @@ Then in your babel configuration (probably `.babelrc`):
 
 ## Features
 
-### Adds css selector support for `styled-components`
+### Adds CSS component selector support for `styled-components`
 
-The es6 template literal allows you to use the full power of css. But there is no css selector for components.
+The es6 template literal allows you to use the full power of css. But there is no css selector for styled-components.
 
-This babel plugin generates per styled-component className on all components and allows you to use the following syntax in you template literals:
+This babel plugin generates a selector attribute aon all styled-components components which allows you to use them as normal css selector as in the following examples:
 
 ```JS
 const Button = styled.div`
   color: black;
 `;
 const Container = styled.div`
-	> ${Button.selector} {
-	  color: green;
-	}
+  > ${Button.selector} {
+    color: green;
+  }
 `;
 ```
 
@@ -49,13 +49,13 @@ const PrimaryButton styled(Button)`
 `
 
 const Container = styled.div`
-	> ${PrimaryButton.selector} {
-	  color: green;
-	}
+  > ${PrimaryButton.selector} {
+    color: green;
+  }
 `;
 ```
 
-We also inherit the generated in the composition hierarchy to nested component:
+We also inherit the generated selector of the composition hierarchy to nested component:
 
 ```JS
 const Button = styled.div`
@@ -67,12 +67,12 @@ const PrimaryButton styled(Button)`
 `
 
 const Container = styled.div`
-	> ${Button.selector} {
-	  color: green;
-	}
-	> ${PrimaryButton.selector} {
-	  color: red;
-	}
+  > ${Button.selector} {
+    color: green;
+  }
+  > ${PrimaryButton.selector} {
+    color: red;
+  }
 `;
 ```
 
