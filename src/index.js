@@ -42,8 +42,6 @@ export default function (babel) {
                   ||(tag.type==="MemberExpression" && tag.object.name===importedVariableName)
                 ){
                   let {start,end} = path3.node.loc
-                  console.info("filename", fileName)
-
                   path3.replaceWith(template(`(function(){
                     let x = React.createFactory(ORIG)
                     class y extends React.Component {
