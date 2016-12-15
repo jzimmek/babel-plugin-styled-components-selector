@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-styled-components-selector",
   "version": "1.0.18",
-  "description": "",
+  "description": "Adds CSS component selector support for styled-components",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
