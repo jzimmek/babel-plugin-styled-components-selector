@@ -1,0 +1,16 @@
+{
+  "name": "babel-plugin-styled-components-selector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jzimmek/babel-plugin-styled-components-selector.git"
+  },
+  "author": "Jan Zimmek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jzimmek/babel-plugin-styled-components-selector/issues"
+  },
+  "homepage": "https://github.com/jzimmek/babel-plugin-styled-components-selector#readme"
+}
