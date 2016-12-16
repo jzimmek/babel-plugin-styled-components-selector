@@ -29,20 +29,20 @@ You can work around this problem, but you will either:
 - break component encapsulation by using html tag/class selectors in the parent component
 - or have to introduce a bunch of intermediate styled-components, even for minimal adjustments like setting a margin
 
-This babel plugin generates a selector attribute on all styled-components components. This allows you to use them as normal css selectors as in the following examples without breaking encapsulation:
+This babel plugin generates a css selector on all styled-components components. This allows you to use them as normal css selectors as shown in the following examples without breaking encapsulation:
 
 ```JS
 const Button = styled.button`
   color: black;
 `;
 const Container = styled.div`
-  > ${Button.selector} {
+  > ${Button} {
     color: green;
   }
 `;
 ```
 
-Works also with composition:
+Works with composition:
 
 ```JS
 const Button = styled.button`
@@ -54,13 +54,13 @@ const PrimaryButton = styled(Button)`
 `;
 
 const Container = styled.div`
-  > ${PrimaryButton.selector} {
+  > ${PrimaryButton} {
     color: green;
   }
 `;
 ```
 
-Also inherit the generated selector of the composition hierarchy to nested components:
+Specific composition hierarchy selectors:
 
 ```JS
 const Button = styled.button`
@@ -72,16 +72,16 @@ const PrimaryButton = styled(Button)`
 `;
 
 const Container = styled.div`
-  > ${Button.selector} {
+  > ${Button} {
     color: green;
   }
-  > ${PrimaryButton.selector} {
+  > ${PrimaryButton} {
     color: red;
   }
 `;
 ```
 
-Component selectors can be nested in css:
+Deeply nested:
 
 ```JS
 const Icon = styled.img`
@@ -95,9 +95,9 @@ const IconButton = styled.div`
 `;
 
 const Container = styled.div`
-  > ${IconButton.selector} {
+  > ${IconButton} {
     color: green;
-    > ${Icon.selector} {
+    > ${Icon} {
       border: 2px;
     }
   }

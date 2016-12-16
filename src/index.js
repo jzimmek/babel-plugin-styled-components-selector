@@ -41,18 +41,31 @@ export default function (babel) {
                   (tag.type==="CallExpression" && tag.callee.name===importedVariableName)
                   ||(tag.type==="MemberExpression" && tag.object.name===importedVariableName)
                 ){
+                  path3.traverse({
+                    TemplateLiteral(path4){
+                      let {expressions} = path4.node
+                      for(let i=0; i < expressions.length; i++){
+                        let expression = expressions[i]
+                        if(expression.type==="Identifier"){
+                          expressions[i] = t.conditionalExpression(
+                            t.memberExpression(expression, t.identifier("selector")),
+                            t.memberExpression(expression, t.identifier("selector")),
+                            expression
+                          )
+                        }
+                      }
+
+                    }
+                  })
+
+
                   let {start,end} = path3.node.loc
                   path3.replaceWith(template(`(function(){
                     let x = React.createFactory(ORIG)
                     class y extends React.Component {
                       render(){
                         let {className} = this.props
-
-                        if(className){
-                        	className = className + " " + CLASS_NAME
-                        }else{
-                          className = CLASS_NAME
-                        }
+                      	className = className?(className+" "+CLASS_NAME):className
 
                     	  return x(Object.assign({}, this.props, {["className"]: className}))
                       }
